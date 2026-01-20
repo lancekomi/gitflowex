@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Git Practice Exercises - Easy</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 2em;
+  line-height: 1.6;
+  background: #fff;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+h2 {
+  color: #333;
+}
+section {
+  margin-bottom: 2em;
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+pre {
+  background: #f4f4f4;
+  padding: 1em;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<h1>Git Branching Practice Exercises</h1>
+
+<section>
+<h2>1. Creating and Merging a Feature Branch</h2>
+<p><strong>Objective:</strong> Create a feature branch from <code>develop</code>, make some changes, then merge it back into <code>develop</code>.</p>
+<ol>
+<li>Start from <code>develop</code> branch:</li>
+<pre>git checkout develop</pre>
+<li>Create a feature branch named <code>feature-login</code>:</li>
+<pre>git checkout -b feature-login develop</pre>
+<li>Make some changes to your files (simulate editing).</li>
+<li>Commit your changes:</li>
+<pre>git commit -am "Add login feature"</pre>
+<li>Switch back to develop:</li>
+<pre>git checkout develop</pre>
+<li>Merge the feature branch into develop using <code>--no-ff</code>:</li>
+<pre>git merge --no-ff feature-login</pre>
+<li>Delete the feature branch:</li>
+<pre>git branch -d feature-login</pre>
+</ol>
+</section>
+
+<section>
+<h2>2. Creating and Finishing a Release Branch</h2>
+<p><strong>Objective:</strong> Create a release branch from <code>develop</code>, prepare for release, then merge into <code>master</code> and <code>develop</code>.</p>
+<ol>
+<li>From <code>develop</code>, create release branch <code>release-1.1</code>:</li>
+<pre>git checkout -b release-1.1 develop</pre>
+<li>Bump version in files (simulate editing), then commit:</li>
+<pre>git commit -am "Bump version to 1.1"</pre>
+<li>When ready, switch to <code>master</code> and merge:</li>
+<pre>git checkout master
+git merge --no-ff release-1.1
+git tag -a 1.1</pre>
+<li>Merge the release back into develop:</li>
+<pre>git checkout develop
+git merge --no-ff release-1.1</pre>
+<li>Delete the release branch:</li>
+<pre>git branch -d release-1.1</pre>
+</ol>
+</section>
+
+<section>
+<h2>3. Creating and Finishing a Hotfix Branch</h2>
+<p><strong>Objective:</strong> Create a hotfix branch from <code>master</code>, fix a bug, then merge into <code>master</code> and <code>develop</code>.</p>
+<ol>
+<li>From <code>master</>, create hotfix branch <code>hotfix-1.1.1</code>:</li>
+<pre>git checkout -b hotfix-1.1.1 master</pre>
+<li>Fix the bug, then commit:</li>
+<pre>git commit -am "Fix critical bug"</pre>
+<li>Merge into <code>master</code> and tag:</li>
+<pre>git checkout master
+git merge --no-ff hotfix-1.1.1
+git tag -a 1.1.1</pre>
+<li>Merge the hotfix into <code>develop</code>:</li>
+<pre>git checkout develop
+git merge --no-ff hotfix-1.1.1</pre>
+<li>Delete hotfix branch:</li>
+<pre>git branch -d hotfix-1.1.1</pre>
+</ol>
+</section>
+
+<section>
+<h2>4. Merging Develop into Master after a Release</h2>
+<p><strong>Objective:</strong> After creating a release branch, merge <code>develop</code> into <code>master</code> to prepare for next release.</p>
+<ol>
+<li>Ensure all features are merged into <code>develop</code>.</li>
+<li>Merge <code>develop</code> into <code>master</code>:</li>
+<pre>git checkout master
+git merge --no-ff develop
+git tag -a 1.2</pre>
+</ol>
+</section>
+
+<section>
+<h2>5. Back-merging a Hotfix into Develop</h2>
+<p><strong>Objective:</strong> Merge the hotfix branch into <code>develop</code> to include the fix in the upcoming release.</p>
+<ol>
+<li>Switch to <code>develop</code>:</li>
+<pre>git checkout develop</pre>
+<li>Merge hotfix branch:</li>
+<pre>git merge --no-ff hotfix-1.1.1</pre>
+</ol>
+</section>
+
+</body>
+</html>

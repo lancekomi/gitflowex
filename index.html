@@ -1,0 +1,108 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Git Branching Model Course - Easy</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>
+        <h1>Git Branching Strategy Course</h1>
+        <nav>
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#main-branches">Main Branches</a></li>
+                <li><a href="#feature-branches">Feature Branches</a></li>
+                <li><a href="#release-branches">Release Branches</a></li>
+                <li><a href="#hotfix-branches">Hotfix Branches</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="intro">
+            <h2>Introduction</h2>
+            <p>This course introduces a Git development model using branches like master, develop, feature, release, and hotfix. Learn how to manage parallel development and releases effectively.</p>
+        </section>
+
+        <section id="main-branches">
+            <h2>Main Branches</h2>
+            <p>The core branches are <strong>master</strong> and <strong>develop</strong>.</p>
+            <ul>
+                <li><strong>master</strong>: Production-ready, reflects live release.</li>
+                <li><strong>develop</strong>: Integration branch, latest development, ready for next release.</li>
+            </ul>
+        </section>
+
+        <section id="feature-branches">
+            <h2>Feature Branches</h2>
+            <p>Used to develop new features. Branch off from <code>develop</code> and merge back when complete.</p>
+            <button onclick="showCode('feature')">Show Git Commands for Feature Branch</button>
+            <pre id="feature" class="code-snippet" style="display:none;">
+# Create feature branch from develop
+git checkout -b myfeature develop
+
+# Merge feature into develop
+git checkout develop
+git merge --no-ff myfeature
+git branch -d myfeature
+            </pre>
+        </section>
+
+        <section id="release-branches">
+            <h2>Release Branches</h2>
+            <p>Support preparing a release. Branch off from <code>develop</code> and merge into <code>master</code> and <code>develop</code>.</p>
+            <button onclick="showCode('release')">Show Git Commands for Release Branch</button>
+            <pre id="release" class="code-snippet" style="display:none;">
+# Create release branch from develop
+git checkout -b release-1.2 develop
+
+# When ready, merge into master
+git checkout master
+git merge --no-ff release-1.2
+git tag -a 1.2
+
+# Merge back into develop
+git checkout develop
+git merge --no-ff release-1.2
+
+# Delete release branch
+git branch -d release-1.2
+            </pre>
+        </section>
+
+        <section id="hotfix-branches">
+            <h2>Hotfix Branches</h2>
+            <p>Used for urgent fixes in production. Branch off from <code>master</code> and merge into <code>master</code> and <code>develop</code>.</p>
+            <button onclick="showCode('hotfix')">Show Git Commands for Hotfix</button>
+            <pre id="hotfix" class="code-snippet" style="display:none;">
+# Create hotfix branch from master
+git checkout -b hotfix-1.2.1 master
+
+# When fixed, merge into master
+git checkout master
+git merge --no-ff hotfix-1.2.1
+git tag -a 1.2.1
+
+# Merge back into develop
+git checkout develop
+git merge --no-ff hotfix-1.2.1
+
+# Delete hotfix branch
+git branch -d hotfix-1.2.1
+            </pre>
+        </section>
+    </main>
+    <footer>
+        <p>Git Branching Model Course &copy; 2024</p>
+    </footer>
+    <script>
+        function showCode(id) {
+            const snippets = document.querySelectorAll('.code-snippet');
+            snippets.forEach(s => s.style.display='none');
+            document.getElementById(id).style.display='block';
+        }
+    </script>
+</body>
+</html>
